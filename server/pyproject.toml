@@ -9,7 +9,7 @@ authors = [{ name = "victor loginov" }]
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = ["flask (>=3.1.1,<4.0.0)"]
 
 
 [build-system]
