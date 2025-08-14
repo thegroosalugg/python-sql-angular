@@ -2,7 +2,7 @@
 import sqlite3
 from .initdata import generate_data
 
-db = sqlite3.connect("db/students.db")
+db = sqlite3.connect("src/db/students.db")
 cursor = db.cursor()
 
 # """ is JS template literal `` equivalent
