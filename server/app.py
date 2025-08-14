@@ -1,27 +1,33 @@
+"""Main App Server"""
 from flask import Flask
+from db.initdb import students
 
 # Create Flask app
 app = Flask(__name__)
 
-def clear(): print("\033c", end="")  # ANSI escape code: Clears console
+def clear():
+    """ANSI escape code: Clears console"""
+    print("\033c", end="")
 
 # Basic route
 @app.route("/")
 def hello():
+    """test function"""
     clear()
     print("Server received a request to /")  # This logs to terminal
-    return "Hello from Python server!"
+    return students
 
 
 @app.route("/test")
 def test():
+    """test function"""
     clear()
     print("Server received a request to /test")  # This logs to terminal
     return {"message": "Test endpoint working", "status": "success"}
 
 
 if __name__ == "__main__":
-    clear()
+    # clear()
     print("Server will be available at: http://localhost:5000")
     app.run(
         debug=True,  # auto reloads on file change
