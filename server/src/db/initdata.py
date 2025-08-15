@@ -11,7 +11,7 @@ def generate_data():
     ]
 
     last_names = [
-        "Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Meyer", "Wagner", "Becker",
+        "Mueller", "Schmidt", "Schneider", "Fischer", "Weber", "Meyer", "Wagner", "Becker",
         "Smith", "Johnson", "Brown", "Williams", "Jones", "Garcia", "Martinez", "Lee",
         "Kim", "Patel", "Nguyen", "Hernandez"
     ]

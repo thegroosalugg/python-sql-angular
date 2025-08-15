@@ -1,9 +1,27 @@
 """Initialize the students database with random student data."""
 import sqlite3
+from sqlite3 import Cursor, Connection
 from .initdata import generate_data
 
-db = sqlite3.connect("src/db/students.db")
-cursor = db.cursor()
+def get_cursor(
+    *,  # forces keyword-only arguments, makes calls like get_cursor(as_dict=True)
+    as_dict: bool = False  # optional, default False (tuple rows)
+) -> tuple[Cursor, Connection]:
+    """
+    Return a new cursor and connection for the students database.
+
+    Parameters
+    ----------
+    as_dict : bool
+        If True, rows will be returned as dict-like objects instead of tuples.
+        JS equivalent: row_factory = sqlite3.Row -> object mapping
+    """
+    db_: Connection = sqlite3.connect("src/db/students.db")
+    if as_dict:
+        db_.row_factory = sqlite3.Row  # JS: makes rows behave like objects instead of arrays
+    return db_.cursor(), db_
+
+cursor, db = get_cursor()
 
 # """ is JS template literal `` equivalent
 cursor.execute("""

@@ -1,7 +1,7 @@
 """Students routes"""
-from flask import Blueprint
-from src.db.initdb import students
+from flask import Blueprint, jsonify
 from src.utils.common import clear
+from src.models.student import Student
 
 bp = Blueprint("students", __name__)
 
@@ -9,5 +9,5 @@ bp = Blueprint("students", __name__)
 def get_students():
     """Return all students"""
     clear()
-    print("Server received a request to /")
-    return students
+    students = Student.get_all()
+    return jsonify(students)
