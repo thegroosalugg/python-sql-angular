@@ -15,3 +15,5 @@
 > flex-body => set on app.html :host (top level parent with multiple children)
 > min-height: 100dvh; => encapsulated content matches device view height (-browser UI)
 > main { flex: 1; } => pushes footer to the bottom
+
+## added reusable, responsive footer
