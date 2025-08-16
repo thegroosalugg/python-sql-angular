@@ -17,3 +17,12 @@
 > main { flex: 1; } => pushes footer to the bottom
 
 ## added reusable, responsive header & footer
+
+## custom icon libary - public/icons.svg
+> custom svg library; use with custom svg component in shared/svg
+> add your own svgs by following the format
+>> <symbol id="icon-name" viewBox="viewbox">
+>> id = chosen name prepended with "icon-", then add name to shared/svg/icon.types.ts
+>> can add any svg, use AI to quickly transform it to match provided syntax in icons.svg
+> included: angular, hamburger, hamburger-2, cart, layers
+> images here were provided by https://www.svgrepo.com/
