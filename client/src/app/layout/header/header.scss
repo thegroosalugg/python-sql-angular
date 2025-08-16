@@ -30,6 +30,9 @@ header {
     gap: 0.125rem;
 
     .text {
+      font-weight: 700;
+      text-wrap: nowrap;
+      
       @media (min-width: 768px)  { display: none;   }
       @media (min-width: 1024px) { display: inline; }
     }
@@ -59,19 +62,6 @@ header {
   flex-basis: var(--basis);
   display: flex;
   justify-content: end;
-}
-
-#search {
-  width: 100%;
-
-  input {
-    width: inherit;
-    padding: 0.25rem 0.5rem;
-    font-size: var(--text-sm);
-    border: var(--border) var(--accent);
-    border-radius: var(--rounded-md);
-    box-shadow: var(--shadow-sm);
-  }
 }
 
 button {

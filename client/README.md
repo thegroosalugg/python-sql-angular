@@ -24,5 +24,8 @@
 >> <symbol id="icon-name" viewBox="viewbox">
 >> id = chosen name prepended with "icon-", then add name to shared/svg/icon.types.ts
 >> can add any svg, use AI to quickly transform it to match provided syntax in icons.svg
-> included: angular, hamburger, hamburger-2, cart, layers
 > images here were provided by https://www.svgrepo.com/
+> included: angular, hamburger, hamburger-2, cart, layers, search
+
+## searchbar - shared/form/searchbar
+> searchbar html & css skeleton only. Add own logic.
