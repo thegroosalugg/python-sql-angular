@@ -16,4 +16,4 @@
 > min-height: 100dvh; => encapsulated content matches device view height (-browser UI)
 > main { flex: 1; } => pushes footer to the bottom
 
-## added reusable, responsive footer
+## added reusable, responsive header & footer

@@ -1,4 +1,4 @@
-// <Layout>
+/* <Layout> */
 :host {
   min-height: 100dvh;
   display: flex;
@@ -8,7 +8,7 @@
 main {
   flex: 1;
 }
-// </Layout>
+/* </Layout> */
 
 h1 {
   color: var(--steel-400);
