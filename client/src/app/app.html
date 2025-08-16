@@ -1,5 +1,6 @@
 <app-header />
-<main>
+<!-- offset fixed header height when at the top of the page -->
+<main [style.margin-top.px]="height()">
   <div class="box-float" style="padding: 5rem; margin: 1rem auto; width: 90%;">
     Your main content goes here...
   </div>

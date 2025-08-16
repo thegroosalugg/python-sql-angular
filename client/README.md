@@ -14,9 +14,15 @@
 ## app.scss - <Layout>
 > flex-body => set on app.html :host (top level parent with multiple children)
 > min-height: 100dvh; => encapsulated content matches device view height (-browser UI)
-> main { flex: 1; } => pushes footer to the bottom
+> main { flex: 1; } => pushes footer to the bottom.
+> main { margin-top } set dynamically by the UIService
 
 ## added reusable, responsive header & footer
+### header
+> responsive app-name & logo layout, searchbar, nav-links, icon buttons
+> scss controls wrapper layout, you can replace content with own code. Tweak css as needed
+> sticky nav-bar - hides on scroll down, shows on scroll up.
+> Header is observed for size changes, so the <main> margin is dynamically updated
 
 ## custom icon libary - public/icons.svg
 > custom svg library; use with custom svg component in shared/svg

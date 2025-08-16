@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from "./layout/header/header";
 import { Footer } from "./layout/footer/footer";
+import { UIService } from './layout/ui.service';
 
 @Component({
      selector: 'app-root',
@@ -10,5 +11,6 @@ import { Footer } from "./layout/footer/footer";
      styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('client');
+  private uiService = inject(UIService);
+  height = this.uiService.height;
 }
