@@ -1,16 +1,19 @@
 import { AfterViewInit, Component, ElementRef, inject, viewChild } from '@angular/core';
 import { UIService } from '../ui.service';
 import { Searchbar } from "app/shared/form/searchbar/searchbar";
-import { Svg } from "app/shared/svg/svg";
+import { Svg } from "app/shared/ui/svg/svg";
+import { Logo } from "app/shared/ui/logo/logo";
+import { appMetadata } from 'app/app.meta';
 
 @Component({
      selector: 'app-header',
    standalone: true,
-      imports: [Svg, Searchbar],
+      imports: [Svg, Searchbar, Logo],
   templateUrl: './header.html',
     styleUrls: ['./header.scss'],
 })
 export class Header implements AfterViewInit {
+  title = appMetadata.title
   private elementRef = viewChild<ElementRef>('header');
   private uiService  = inject(UIService);
   showHeader = this.uiService.showHeader;

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "basic CRUD app learning python",
   "scripts": {
-    "app": "clear && concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
+    "app": "clear && concurrently --raw \"npm run client\" \"npm run server\"",
     "client": "cd client && ng serve",
     "server": "cd server && poetry run python -m app"
   },

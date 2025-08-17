@@ -37,9 +37,9 @@ aside {
   @media (min-width: 768px) { width: 45%; }
 }
 
-/* can be replaced if needed; but it ensures all projected content has a sticky close button,
-the projected content has automatic scrolling,
-and all content is confined within the bounds of browser UI elements (mobile) */
+/* content wrapper can be replaced if needed; it ensures:
+- content has sticky close-button & confined within bounds of browser UI elements (mobile),
+- ng-content (projected content) automatically scrolls */
 .content {
   height: 100dvh;
   display: flex;

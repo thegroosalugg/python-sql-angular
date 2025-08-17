@@ -19,27 +19,12 @@ header {
   @media (min-width: 1024px) { padding: 1.5rem; }
 }
 
-/* center nav-bar: keep main wrapper here, outsource <h1> and <nav> children as components if needed */
+/* center nav-bar: keep main wrapper here, outsource <nav> children as components if needed */
 .nav-bar {
   flex-basis: var(--basis);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-
-  h1 {
-    display: flex;
-    align-items: center;
-    gap: 0.125rem;
-    margin: 0 auto;
-
-    .text {
-      font-weight: 700;
-      text-wrap: nowrap;
-
-      @media (min-width: 768px)  { display: none;   }
-      @media (min-width: 1024px) { display: inline; }
-    }
-  }
 
   nav {
     display: none;

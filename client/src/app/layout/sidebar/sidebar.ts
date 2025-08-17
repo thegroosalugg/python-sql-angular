@@ -1,5 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { Svg } from "app/shared/svg/svg";
+import { Svg } from "app/shared/ui/svg/svg";
 import { UIService } from '../ui.service';
 
 @Component({

@@ -1,18 +1,19 @@
 <footer>
   <hr />
   <section class="footer-top">
-    <h1>{{ appName() }}</h1>
+    <h1>{{ title }}</h1>
     <nav>
       <a href="/">Home</a>
       <a href="/">About</a>
       <a href="/">Terms & Conditions</a>
     </nav>
-    <h1>{{ appLogo() }}</h1>
+    <!-- keep <h1> for layout styles - replace logo as needed -->
+    <h1><app-logo /></h1>
   </section>
   <hr />
   <section class="footer-bottom">
-    <p>© {{ appRights() }}. All rights reserved.</p>
-    <a [href]="github()" target="_blank">View Source Code</a>
-    <p>{{ appStack() }}</p>
+    <p>{{ rights }}</p>
+    <a [href]="link" target="_blank">View Source Code</a>
+    <p>{{ stack }}</p>
   </section>
 </footer>

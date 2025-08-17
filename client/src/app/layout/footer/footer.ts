@@ -1,15 +1,18 @@
 import { Component, signal } from '@angular/core';
+import { appMetadata } from 'app/app.meta';
+import { Logo } from "app/shared/ui/logo/logo";
+
+const { title, rights, stack, link } = appMetadata;
 
 @Component({
      selector: 'app-footer',
-      imports: [],
+      imports: [Logo],
   templateUrl: './footer.html',
      styleUrl: './footer.scss'
 })
 export class Footer {
-    appName = signal('My App');
-    appLogo = signal('Logo');
-  appRights = signal('2025 My App');
-   appStack = signal('Designed with Angular 20');
-     github = signal('https://github.com/');
+   title = title;
+  rights = rights;
+   stack = stack;
+    link = link;
 }

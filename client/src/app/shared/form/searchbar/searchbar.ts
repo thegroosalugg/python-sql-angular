@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Svg } from "app/shared/svg/svg";
+import { Svg } from "app/shared/ui/svg/svg";
 
 @Component({
      selector: 'app-searchbar',
