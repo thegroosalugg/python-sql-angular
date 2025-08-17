@@ -1,0 +1,23 @@
+<header #header [class.visible]="showHeader()">
+  <div class="content-left">
+    <button aria-label="left-sidebar-mobile" (click)="openLeftSidebar()">
+      <app-svg icon="hamburger" />
+    </button>
+  </div>
+  <div class="nav-bar">
+    <app-logo [responsive]="true" />
+    <nav>
+      <a href="/">LinkOne</a>
+      <a href="/">LinkTwo</a>
+      <a href="/">LinkThree</a>
+    </nav>
+  </div>
+  <div class="content-center">
+    <app-searchbar />
+  </div>
+  <div class="content-right">
+    <button aria-label="right-sidebar" (click)="openRightSidebar()">
+      <app-svg icon="layers" />
+    </button>
+  </div>
+</header>

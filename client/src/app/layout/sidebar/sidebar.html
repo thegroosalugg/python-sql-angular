@@ -1,0 +1,13 @@
+<div [class]="{ backdrop: true, visible: isOpen() }" (click)="close()"></div>
+<aside [class]="{ 'visible': isOpen(), 'on-right': onRight() }">
+  <div class="content">
+    <header [class.on-right]="onRight()">
+      <button aria-label="close-sidebar" (click)="close()">
+        <app-svg icon="x" />
+      </button>
+    </header>
+    <main>
+      <ng-content />
+    </main>
+  </div>
+</aside>

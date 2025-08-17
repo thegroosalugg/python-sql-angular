@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+@use "styles.colors" as *;
+@use "styles.variables" as *;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --font-major: "Montserrat", serif;
+  --font-minor: "Lato", sans-serif;
+  --bg: var(--neutral-200);
+  --fg: var(--neutral-900);
+  --accent: var(--sky-800);
+  --accent-hvr: var(--sky-700);
+  --text: var(--neutral-600);
+  --box: var(--neutral-100);
+  --danger: var(--rust-600);
+  --success: var(--lime-600);
+  --hover: var(--violet-400);
+  --transparent: #ffffff00;
+  --border: 1px solid;
+  --transition: 0.5s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  html { color-scheme: dark; }
+  :root {
+    --bg: var(--neutral-800);
+    --fg: var(--neutral-100);
+    --accent: var(--sky-500);
+    --accent-hvr: var(--sky-400);
+    --text: var(--neutral-300);
+    --box: var(--neutral-700);
+    --danger: var(--rust-500);
+    --success: var(--lime-500);
+    --hover: var(--neutral-100);
+    --transparent: #00000000;
+  }
+}
+
+/* <CSSReset> */
+*, *::before, *::after { box-sizing: border-box; }
+*                      { margin: 0;  padding: 0; }
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.2;
+  font-family: var(--font-major);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* overlays stretch to screen height */
+}
+
+input, textarea, select          { outline: none; border-radius: 0; }
+a                                { text-decoration: none;           }
+ul, ol                           {      list-style: none;           }
+img, picture, video, canvas, svg {         display: block;          }
+button                           {          cursor: pointer;        }
+
+a, p, h1, h2, h3, h4, h5, h6, button, label, input, textarea, select, option {
+  overflow-wrap: break-word; /* only works when element has width */
+           font: inherit;
+          color: inherit;
+}
+
+::-webkit-scrollbar       { width: 1px; height: 1px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--fg); border-radius: 5px; }
+/* </CSSReset> */

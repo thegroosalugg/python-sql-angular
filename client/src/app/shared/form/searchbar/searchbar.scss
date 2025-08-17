@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+form {
+  position: relative;
+  width: inherit;
+
+  input {
+    width: inherit;
+    padding: 0.25rem 0.5rem;
+    padding-right: 1.5rem;
+    font-size: var(--text-sm);
+    border: var(--border) var(--accent);
+    border-radius: var(--rounded-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0.25rem;
+  }
+}

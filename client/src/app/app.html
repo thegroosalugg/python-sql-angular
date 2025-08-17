@@ -1,0 +1,22 @@
+<app-header />
+<app-sidebar id="left">
+  <!-- placeholder: move or remove -->
+  <div class="left-sidebar-content">
+    <app-searchbar />
+    <a href="/">LinkOne</a>
+    <a href="/">Linktwo</a>
+    <a href="/">LinkThree</a>
+  </div>
+</app-sidebar>
+<app-sidebar id="right" [onRight]="true">
+  <!-- placeholder: move or remove -->
+  <div class="right-sidebar-content">
+    {{ "0 1 ".repeat(1000) }}
+  </div>
+</app-sidebar>
+<!-- offset fixed header height when at the top of the page -->
+<main [style.margin-top.px]="height()">
+  <!-- placeholder: move or remove -->
+  <div class="box-float placeholder">Your main content goes here...</div>
+</main>
+<app-footer />

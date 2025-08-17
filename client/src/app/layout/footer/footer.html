@@ -1,0 +1,19 @@
+<footer>
+  <hr />
+  <section class="footer-top">
+    <h1>{{ title }}</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/">About</a>
+      <a href="/">Terms & Conditions</a>
+    </nav>
+    <!-- keep <h1> for layout styles - replace logo as needed -->
+    <h1><app-logo /></h1>
+  </section>
+  <hr />
+  <section class="footer-bottom">
+    <p>{{ rights }}</p>
+    <a [href]="link" target="_blank">View Source Code</a>
+    <p>{{ stack }}</p>
+  </section>
+</footer>

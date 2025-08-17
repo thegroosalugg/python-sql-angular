@@ -1,0 +1,22 @@
+{
+  "name": "python-sql-angular",
+  "version": "1.0.0",
+  "description": "basic CRUD app learning python",
+  "scripts": {
+    "app": "clear && concurrently --raw \"npm run client\" \"npm run server\"",
+    "client": "cd client && ng serve",
+    "server": "cd server && poetry run python -m app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thegroosalugg/python-sql-angular.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thegroosalugg/python-sql-angular/issues"
+  },
+  "homepage": "https://github.com/thegroosalugg/python-sql-angular#readme",
+  "dependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

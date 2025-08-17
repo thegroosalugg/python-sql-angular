@@ -1,0 +1,22 @@
+:host {
+  display: flex; /* centers logo content in wider parent containers */
+  width: 100%;
+}
+
+h1 {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.text {
+  font-size: var(--text-base);
+  font-weight: 700;
+  text-wrap: nowrap;
+
+  &.responsive {
+    @media (min-width: 768px)  { display: none;   }
+    @media (min-width: 1024px) { display: inline; }
+  }
+}

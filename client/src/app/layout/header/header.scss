@@ -1,0 +1,68 @@
+header {
+  --basis: 33.3333%;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  overflow-x: auto;
+  background: var(--bg);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(-100%);
+
+  &.visible { transform: translateY(0); }
+
+  @media (min-width: 1024px) { padding: 1.5rem; }
+}
+
+/* center nav-bar: keep main wrapper here, outsource <nav> children as components if needed */
+.nav-bar {
+  flex-basis: var(--basis);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  nav {
+    display: none;
+    gap: 0.5rem;
+
+    @media (min-width: 768px) { display: flex; }
+
+    a {
+      transition: var(--transition);
+      &:hover { text-decoration-line: underline; }
+    }
+  }
+}
+
+.content-left {
+  flex-basis: var(--basis);
+  display: block;
+
+  @media (min-width: 768px) { display: none; }
+}
+
+.content-center {
+  flex-basis: var(--basis);
+  display: none;
+
+  @media (min-width: 768px) { display: flex; }
+}
+
+.content-right {
+  flex-basis: var(--basis);
+  display: flex;
+  justify-content: end;
+}
+
+/* icon button: can source to another file if needed */
+button {
+  background: none;
+  padding: 0.25rem;
+  border: var(--border) var(--text);
+  border-radius: var(--rounded-sm);
+}
