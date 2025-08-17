@@ -37,17 +37,32 @@ aside {
   @media (min-width: 768px) { width: 45%; }
 }
 
-header {
+/* can be replaced if needed; but it ensures all projected content has a sticky close button,
+the projected content has automatic scrolling,
+and all content is confined within the bounds of browser UI elements (mobile) */
+.content {
+  height: 100dvh;
   display: flex;
-  padding: 1rem;
+  flex-direction: column;
 
-  &.on-right { justify-content: end; }
+  header {
+    display: flex;
+    padding: 1rem;
 
-  button {
-    color: var(--box);
-    background: var(--text);
-    padding: 0.375rem;
-    border: var(--border) var(--box);
-    border-radius: var(--rounded-md);
+    &.on-right { justify-content: end; }
+    @media (max-width: 640px) { padding: 0.5rem; }
+
+    button {
+      color: var(--box);
+      background: var(--text);
+      padding: 0.375rem;
+      border: var(--border) var(--box);
+      border-radius: var(--rounded-md);
+    }
+  }
+
+  main {
+    flex: 1;
+    overflow: auto;
   }
 }

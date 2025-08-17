@@ -30,6 +30,7 @@
 - has left and right sidebars, both pre-programmed for immediate use
 - set [onRight]="true" for right hand side
 - sidebars always remain in DOM
+- close button (header) alway on top, projected content automatically scrolls on overflow
 - controlled by __UIService__; only 1 sidebar can be visible at a time:
   - pass the same [id] to (openSidebar) event and to <app-sidebar /> for synchronicity
   - inject service to your component and close any/all sidebars at any event

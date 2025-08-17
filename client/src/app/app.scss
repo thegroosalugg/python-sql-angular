@@ -12,13 +12,25 @@ main {
 
 /* Placeholder content - move or remove as needed */
 .left-sidebar-content {
-  height: 100dvh;
   max-width: 90%;
-  overflow: auto;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+/* Layout example */
+.right-sidebar-content {
+  width: 95%;
+  height: 97.5%; /* use height instead of margin/padding to create gap from sidebar edges */
+  overflow: auto; /* optional: used if you want more control over content flow. Sidebar will overflow all content */
+  margin: 0 auto;
+  padding: 0.5rem;
+  background: var(--neutral-800);
+  color: var(--gray-100);
+  text-align: justify;
+  border-radius: var(--rounded-md);
+  box-shadow: var(--shadow-inset);
 }
 
 .placeholder {
