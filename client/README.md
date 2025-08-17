@@ -44,6 +44,7 @@
 - [responsive]="true"; optional (hides text on certain breakpoints)
 - set title in __app.meta.ts__ to change text
 - uses custom svg library - can be replaced by any type of logo as needed
+- pass any css variable as color - type safe
 
 ### custom icon library - public/icons.svg
 - custom svg library; use with custom svg component in __shared/ui/svg__
@@ -56,3 +57,9 @@
 
 ### searchbar - shared/form/searchbar
 - searchbar html & css skeleton only. Add own logic.
+
+### common types - shared/types
+- space for common types
+- includes:
+  - ObjMap (faster Record types)
+  - all CSS color variables are typed, i.e. red-500
