@@ -1,7 +1,20 @@
 <app-header />
+<app-sidebar id="left">
+  <!-- placeholder: move or remove -->
+  <div class="left-sidebar-content">
+    <app-searchbar />
+    <a href="/">LinkOne</a>
+    <a href="/">Linktwo</a>
+    <a href="/">LinkThree</a>
+  </div>
+</app-sidebar>
+<app-sidebar id="right" [onRight]="true">
+<!-- placeholder: move or remove -->
+</app-sidebar>
 <!-- offset fixed header height when at the top of the page -->
 <main [style.margin-top.px]="height()">
-  <div class="box-float" style="padding: 5rem; margin: 1rem auto; width: 90%;">
+  <!-- placeholder: move or remove -->
+  <div class="box-float placeholder">
     Your main content goes here...
   </div>
 </main>

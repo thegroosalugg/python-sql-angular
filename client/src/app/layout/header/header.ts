@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, inject, viewChild } from '@angular/core';
+import { UIService } from '../ui.service';
 import { Searchbar } from "app/shared/form/searchbar/searchbar";
 import { Svg } from "app/shared/svg/svg";
-import { UIService } from '../ui.service';
 
 @Component({
      selector: 'app-header',
@@ -11,9 +11,11 @@ import { UIService } from '../ui.service';
     styleUrls: ['./header.scss'],
 })
 export class Header implements AfterViewInit {
-  private uiService = inject(UIService);
+  private elementRef = viewChild<ElementRef>('header');
+  private uiService  = inject(UIService);
   showHeader = this.uiService.showHeader;
-  elementRef = viewChild<ElementRef>('header');
+  openLeftSidebar  = () => this.uiService.openSidebar('left');
+  openRightSidebar = () => this.uiService.openSidebar('right');
 
   ngAfterViewInit() {
     const element = this.elementRef()?.nativeElement;

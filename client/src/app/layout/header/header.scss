@@ -19,13 +19,7 @@ header {
   @media (min-width: 1024px) { padding: 1.5rem; }
 }
 
-.content-left {
-  flex-basis: var(--basis);
-  display: block;
-
-  @media (min-width: 768px) { display: none; }
-}
-
+/* center nav-bar: keep main wrapper here, outsource <h1> and <nav> children as components if needed */
 .nav-bar {
   flex-basis: var(--basis);
   display: flex;
@@ -36,6 +30,7 @@ header {
     display: flex;
     align-items: center;
     gap: 0.125rem;
+    margin: 0 auto;
 
     .text {
       font-weight: 700;
@@ -59,6 +54,13 @@ header {
   }
 }
 
+.content-left {
+  flex-basis: var(--basis);
+  display: block;
+
+  @media (min-width: 768px) { display: none; }
+}
+
 .content-center {
   flex-basis: var(--basis);
   display: none;
@@ -72,6 +74,7 @@ header {
   justify-content: end;
 }
 
+/* icon button: can source to another file if needed */
 button {
   background: none;
   padding: 0.25rem;

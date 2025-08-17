@@ -1,6 +1,6 @@
 <header #header [class.visible]="showHeader()">
   <div class="content-left">
-    <button aria-label="left-sidebar-mobile">
+    <button aria-label="left-sidebar-mobile" (click)="openLeftSidebar()">
       <app-svg icon="hamburger" />
     </button>
   </div>
@@ -19,7 +19,7 @@
     <app-searchbar />
   </div>
   <div class="content-right">
-    <button aria-label="right-sidebar">
+    <button aria-label="right-sidebar" (click)="openRightSidebar()">
       <app-svg icon="layers" />
     </button>
   </div>

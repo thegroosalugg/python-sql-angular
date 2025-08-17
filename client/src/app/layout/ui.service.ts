@@ -4,12 +4,18 @@ import { Injectable, signal, DestroyRef, inject } from '@angular/core';
 export class UIService {
   destroyRef  = inject(DestroyRef);
 
-  private _showHeader = signal(true);
-  private _height = signal(0);
-  private lastScroll = 0;
+  private  _showHeader = signal(true);
+  private _showSidebar = signal('');
+  private      _height = signal(0);
+  private   lastScroll = 0;
 
-  readonly showHeader = this._showHeader.asReadonly();
-  readonly height = this._height.asReadonly();
+  readonly  showHeader = this._showHeader.asReadonly();
+  readonly showSidebar = this._showSidebar.asReadonly();
+  readonly      height = this._height.asReadonly();
+
+   openSidebar = (id: string) => this._showSidebar.set(id);
+  closeSidebar = () => this._showSidebar.set('');
+     setHeight = (height: number) => this._height.set(height);
 
   constructor() {
     const handleScroll = () => {
@@ -20,9 +26,5 @@ export class UIService {
 
     window.addEventListener('scroll', handleScroll);
     this.destroyRef.onDestroy(() => window.removeEventListener('scroll', handleScroll));
-  }
-
-  setHeight(height: number) {
-    this._height.set(height);
   }
 }
