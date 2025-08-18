@@ -1,15 +1,31 @@
 @if (isLoading()) {
   <app-loader />
 } @else {
-  <ul>
+  <header>
+    <h2>View</h2>
+    <section>
+      @for (class of classes(); track $index) {
+        <button (click)="setActiveClass($index)" aria-label="change-view-type">
+          <app-svg [icon]="classes()[$index]" />
+        </button>
+      }
+    </section>
+  </header>
+  <ul [class]="`scrollbar-accent ${listStyle()}`">
     @for (user of users(); track user.id) {
       <li>
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-        <p>{{ user.email }}</p>
-        <p>{{ user.dob | date: 'longDate' }}</p>
-        <p>{{ user.dob | age }}</p>
-        <p>{{ user.joined_on }}</p>
+        <h2>
+          <strong>{{ user.first_name }} {{ user.last_name }}</strong>
+          <span>{{ user.dob | age }} years old</span>
+        </h2>
+        <p class="email">{{ user.email }}</p>
+        <p class="dob">DOB: {{ user.dob | date : 'longDate' }}</p>
+        <p class="joined">
+          Registered: <span>{{ user.joined_on }}</span>
+        </p>
       </li>
+    } @empty {
+      <li class="fallback">No data available.</li>
     }
   </ul>
 }

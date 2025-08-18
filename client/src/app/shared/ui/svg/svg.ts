@@ -8,6 +8,6 @@ import { Icon } from './svg.types';
      styleUrl: './svg.scss',
 })
 export class Svg {
-  icon = input<Icon>();
+  icon = input.required<Icon>();
   href = computed(() => `/icons.svg#icon-${this.icon()}`);
 }
