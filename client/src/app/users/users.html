@@ -1,0 +1,15 @@
+@if (isLoading()) {
+  <app-loader />
+} @else {
+  <ul>
+    @for (user of users(); track user.id) {
+      <li>
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <p>{{ user.email }}</p>
+        <p>{{ user.dob | date: 'longDate' }}</p>
+        <p>{{ user.dob | age }}</p>
+        <p>{{ user.joined_on }}</p>
+      </li>
+    }
+  </ul>
+}

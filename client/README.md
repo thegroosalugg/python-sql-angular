@@ -58,6 +58,12 @@
 ### searchbar - shared/form/searchbar
 - searchbar html & css skeleton only. Add own logic.
 
+### loader - shared/ui/loader
+- configurable with 3 sizes: 16/32/64px
+- default accent color: includes classes bg/white - tweak as needed
+  - colors are more easily configured as classes over styles due to multiple positions
+    - for more colors tweak existing classes or create new
+
 ### common types - shared/types
 - space for common types
 - includes:
