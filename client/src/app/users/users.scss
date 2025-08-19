@@ -24,18 +24,21 @@ header {
     gap: 0.5rem;
   }
 
-  button {
+  a {
+    --color: var(--box);
     padding: 0.25rem;
-    background: none;
-    color: var(--box);
-    border: var(--border) var(--box);
+    color: var(--color);
+    border: var(--border) var(--color);
     border-radius: var(--rounded-md);
+
+    &.active { --color: var(--accent); background: var(--box);}
   }
 }
 
 ul {
   flex: 1;
   max-width: 100%;
+  max-height: 100dvh;
   display: grid;
   align-content: start; /* aligns rows at the top */
   gap: 0.5rem;
@@ -43,6 +46,10 @@ ul {
   padding: 1rem;
   margin-bottom: 0.5rem;
   transition: var(--transition);
+  animation: fadeIn 1s ease;
+  opacity: 1;
+
+  &.transitioning { opacity: 0; }
 
   &.row {
     grid-template-rows: repeat(2, auto);
@@ -52,7 +59,6 @@ ul {
   &.col {
     grid-template-columns: repeat(2, 200px); // 2 columns
     margin: 0.25rem auto;
-    max-height: 100dvh;
   }
 
   &.grid {

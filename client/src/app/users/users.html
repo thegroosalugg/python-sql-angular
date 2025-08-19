@@ -1,17 +1,20 @@
-@if (isLoading()) {
-  <app-loader />
+@if (isLoading() || !hasLoaded()) {
+  <!-- provide loader margin top | bottom -->
+  <div style="margin: 1rem auto;">
+    <app-loader />
+  </div>
 } @else {
   <header>
     <h2>View</h2>
     <section>
-      @for (class of classes(); track $index) {
-        <button (click)="setActiveClass($index)" aria-label="change-view-type">
-          <app-svg [icon]="classes()[$index]" />
-        </button>
+      @for (class of classes(); track class) {
+        <a [routerLink]="[]" [queryParams]="{ view: class }" queryParamsHandling="merge" routerLinkActive="active">
+          <app-svg [icon]="class" />
+        </a>
       }
     </section>
   </header>
-  <ul [class]="`scrollbar-accent ${listStyle()}`">
+  <ul #ulist [class]="`scrollbar-accent ${listStyle()}`" [class.transitioning]="isTransitioning()">
     @for (user of users(); track user.id) {
       <li>
         <h2>

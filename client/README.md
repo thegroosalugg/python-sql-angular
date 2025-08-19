@@ -53,7 +53,7 @@
   - id = chosen name prepended with "icon-", then add name to __shared/ui/svg/icon.types.ts__
   - can add any svg, use AI to quickly transform it to match provided syntax in icons.svg
 - images here were provided by https://www.svgrepo.com/
-- included: angular, cart, col-2, grid-2, hamburger-2 layers, row-2, search
+- included: angular, cart, col-2, grid-2, hamburger-2 layers, row-2, search, x
   - with -number includes up to & original
 
 ### searchbar - shared/form/searchbar
