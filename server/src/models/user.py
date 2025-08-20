@@ -49,10 +49,21 @@ class User:
             db.commit()
 
     @staticmethod
-    def get_all() -> list["User"]:
+    def get_all() -> list[dict]:
         """Fetch all Users from DB"""
         cursor = get_cursor(as_dict=True)[0]
         cursor.execute("SELECT * FROM users")
         rows = cursor.fetchall()  # fetchall() == db.prepare(...).all() in JS
         # dict creates an object from the sql_dict_row
         return [dict(row) for row in rows]  # [newVal for oldVal in values]
+
+    @staticmethod
+    def find(user_id: int) -> dict | None:
+        """Find user by ID"""
+        cursor = get_cursor(as_dict=True)[0]
+        # must use a tuple. Comma tells python to treat element as a single value tuple
+        cursor.execute("SELECT * FROM users WHERE id=?", (user_id,))
+        row = cursor.fetchone()
+        if row is None:
+            return None
+        return dict(row)

@@ -5,11 +5,10 @@ import { Footer } from "./layout/footer/footer";
 import { UIService } from './layout/ui.service';
 import { Sidebar } from "./layout/sidebar/sidebar";
 import { Searchbar } from "./shared/form/searchbar/searchbar";
-import { Users } from "./users/users";
 
 @Component({
      selector: 'app-root',
-      imports: [RouterOutlet, Header, Footer, Sidebar, Searchbar, Users],
+      imports: [RouterOutlet, Header, Footer, Sidebar, Searchbar],
   templateUrl: './app.html',
      styleUrl: './app.scss'
 })

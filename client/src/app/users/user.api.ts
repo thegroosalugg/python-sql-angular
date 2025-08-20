@@ -9,5 +9,5 @@ const { apiUrl } = appMetadata;
 export class UserApi {
   private httpClient = inject(HttpClient);
 
-  getUsers = () => this.httpClient.get<User[]>(apiUrl);
+  getUsers = () => this.httpClient.get<User[]>(apiUrl + '/users/all');
 }

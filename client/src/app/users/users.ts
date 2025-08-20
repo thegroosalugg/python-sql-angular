@@ -20,28 +20,30 @@ export class Users implements OnInit {
   private route   = inject(ActivatedRoute);
 
   users           = signal<User[]>([]);
-  isLoading       = signal(true);
-  hasLoaded       = signal(false);
-  isTransitioning = signal(false);
-  classes         = signal(['row', 'col', 'grid'] as View[]);
-  listStyle       = signal<View>('col');
+  isLoading       = signal(true); // data fetching
+  hasLoaded       = signal(false); // keep loader in view until param query && data loaded
+  isTransitioning = signal(false); // param query swapping
+  classes         = signal(['row', 'col', 'grid'] as View[]); // map reusable links => less boilerplate HTML
+  listStyle       = signal<View>('col'); // active css class
 
   ngOnInit() {
+    // fetch all users
     this.userAPI.getUsers().subscribe({
           next: (res) => this.users.set(res),
          error: (err) => console.log('Error (getUsers):', err),
       complete: (   ) => this.isLoading.set(false),
     });
 
+    // subscribe to param query changes
     this.route.queryParamMap.subscribe((params) => {
       const view = params.get('view') as View;
       if (view === this.listStyle() && this.hasLoaded()) return;
-      this.isTransitioning.set(true);
+      this.isTransitioning.set(true); // toggled every param query change
       setTimeout(() => {
         this.listStyle.set(this.classes().includes(view) ? view : 'col');
         this.isTransitioning.set(false);
-        this.hasLoaded.set(true);
-      }, 500);
+        this.hasLoaded.set(true); // toggled only once, on initial query detection
+      }, 500); // standard app animation timer
     });
   }
 }
