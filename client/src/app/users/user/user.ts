@@ -2,10 +2,11 @@ import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { User as UserModel } from '../user.model';
 import { UserApi } from '../user.api';
 import { Loader } from "app/shared/ui/loader/loader";
+import { UserForm } from "./form/user.form";
 
 @Component({
      selector: 'app-user',
-      imports: [Loader],
+      imports: [Loader, UserForm],
   templateUrl: './user.html',
      styleUrl: './user.scss'
 })

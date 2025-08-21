@@ -9,6 +9,8 @@ const { apiUrl } = appMetadata;
 export class UserApi {
   private httpClient = inject(HttpClient);
 
-  getUsers = () => this.httpClient.get<User[]>(apiUrl + '/users/all');
-  getUser  = (id: string) => this.httpClient.get<User>(`${apiUrl}/user/${id}`);
+  getUsers   = () => this.httpClient.get<User[]>(apiUrl + '/users/all');
+  getUser    = (id: string) => this.httpClient.get<User>(`${apiUrl}/user/${id}`);
+  updateUser = (id: string, body: Object) =>
+    this.httpClient.put<User>(`${apiUrl}/user/update/${id}`, body);
 }

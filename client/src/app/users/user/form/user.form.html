@@ -1,0 +1,9 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  @for (field of fields; track field.key) {
+    <p class="control">
+      <label [for]="field.key">{{ field.label }}</label>
+      <input [id]="field.key" [formControlName]="field.key" [type]="field.type ?? 'text'" />
+    </p>
+  }
+  <button [disabled]="form.invalid">Submit</button>
+</form>

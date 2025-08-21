@@ -1,10 +1,11 @@
-@let u = user();
-@if (isLoading()) {
+@let u = user(); @if (isLoading()) {
   <app-loader />
 } @else if (u) {
-  <h2>{{ u.first_name }} {{ u.last_name }}</h2>
-  <p>{{ u.email }}</p>
-  <p>{{ u.dob }}</p>
-  <p>{{ u.joined_on }}</p>
+  <div class="user-info">
+    <h2>{{ u.first_name }} {{ u.last_name }}</h2>
+    <p>{{ u.email }}</p>
+    <p>{{ u.dob }}</p>
+    <p>{{ u.joined_on }}</p>
+  </div>
+  <app-user-form [userId]="u.id" />
 }
- 
