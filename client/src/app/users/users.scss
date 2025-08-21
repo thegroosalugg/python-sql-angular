@@ -66,7 +66,8 @@ ul {
   }
 }
 
-li {
+li > a {
+  height: 100%; /* grow element inside <li> wrapper */
   display: flex;
   flex-direction: column;
   padding: 0.5rem;

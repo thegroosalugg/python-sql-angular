@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { AgePipe } from 'app/shared/pipes/age-pipe';
 import { Svg } from "app/shared/ui/svg/svg";
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { Subscriptions } from 'app/shared/services/subscriptions';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type View = 'row' | 'col' | 'grid';
 
@@ -17,7 +19,11 @@ type View = 'row' | 'col' | 'grid';
 })
 export class Users implements OnInit {
   private userAPI = inject(UserApi);
+  private subs    = inject(Subscriptions);
   private route   = inject(ActivatedRoute);
+  // Store observable at injection; automatically unsubscribes on component destroy
+  private params$ = this.route.queryParamMap.pipe(takeUntilDestroyed());
+
 
   users           = signal<User[]>([]);
   isLoading       = signal(true); // data fetching
@@ -28,14 +34,14 @@ export class Users implements OnInit {
 
   ngOnInit() {
     // fetch all users
-    this.userAPI.getUsers().subscribe({
+    const httpSub = this.userAPI.getUsers().subscribe({
           next: (res) => this.users.set(res),
          error: (err) => console.log('Error (getUsers):', err),
       complete: (   ) => this.isLoading.set(false),
     });
 
     // subscribe to param query changes
-    this.route.queryParamMap.subscribe((params) => {
+    const routeSub = this.params$.subscribe((params) => {
       const view = params.get('view') as View;
       if (view === this.listStyle() && this.hasLoaded()) return;
       this.isTransitioning.set(true); // toggled every param query change
@@ -45,5 +51,9 @@ export class Users implements OnInit {
         this.hasLoaded.set(true); // toggled only once, on initial query detection
       }, 500); // standard app animation timer
     });
+
+    // monitor subscriptions
+    this.subs.register(httpSub, routeSub);
+    this.subs.logActive();
   }
 }
