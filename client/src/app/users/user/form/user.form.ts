@@ -67,7 +67,7 @@ export class UserForm {
     if (this.form.invalid) return;
     this.isSubmitting.set(true);
     this.userAPI.updateUser(this.userId(), this.form.value).subscribe({
-       next: (val) => console.log('Error (updateUser):', val),
+       next: (val) => console.log('(updateUser):', val),
       error: (err) => {
         console.log('Error (updateUser):', err);
         this.isSubmitting.set(false);

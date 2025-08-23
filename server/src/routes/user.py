@@ -1,7 +1,8 @@
 """Users routes"""
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from src.utils.common import clear
 from src.models.user import User
+from src.validation.user import validate_user
 
 bp = Blueprint("users", __name__)
 
@@ -18,4 +19,23 @@ def find_user_by_id(user_id):  # route name must match parameter
     """Find user by ID"""
     clear()
     user = User.find(user_id)
-    return jsonify(user)
+    return jsonify(user)  # send JSON response - default Flask code is 200
+
+# route with param & body - methods=["PUT", "POST", "DELETE"]
+@bp.route("/user/update/<int:user_id>", methods=["PUT"])
+def update_user(user_id):
+    """Update existing user"""
+    clear()
+
+    data = request.get_json()  # **req.body in JS
+    if data is None:
+        return jsonify({"error": "Invalid or missing JSON"}), 400  # return HTTP 400 + JSON
+
+    errors = validate_user(data)
+
+    print(user_id, errors)
+
+    # tuple assignment: like JS [a,b] = [...]
+    # if errors dict has keys -> return errors + 422, else success + 200
+    msg, status = (errors, 422) if errors else ({"message": "success"}, 200)
+    return jsonify(msg), status
