@@ -1,5 +1,7 @@
 @let u = user(); @if (isLoading()) {
-  <app-loader />
+  <div style="margin: 1rem auto;">
+    <app-loader />
+  </div>
 } @else if (u) {
   <div class="user-info">
     <h2>{{ u.first_name }} {{ u.last_name }}</h2>

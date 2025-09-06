@@ -18,10 +18,11 @@ def validate_user(data: Dict) -> Dict[str, str]:
         # Python ternary = A if condition else B (JS: condition ? A : B)
         # const name = (typeof value === "string") ? value.trim() : "";
         name = value.strip() if isinstance(value, str) else ""
+        formatted = field.replace('_', ' ')
         if not name:  # required check
-            errors[field] = "Field is required"
+            errors[field] = f"{formatted} is required" # f"{}" == `${}`
         elif len(name) < 2:  # min length 2
-            errors[field] = "Must be at least 2 characters"
+            errors[field] = f"{formatted} be at least 2 characters"
         # re.match(pattern, value) -> function call, passes pattern + string (pattern.test(value))
         elif not re.match(r"^[a-zA-Z\s]+$", name):  # only letters + spaces
             errors[field] = "Letters only"

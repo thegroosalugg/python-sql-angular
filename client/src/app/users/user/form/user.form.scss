@@ -1,0 +1,49 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--text-sm);
+
+  label {
+    margin-left: 0.25rem;
+    color: var(--text);
+    font-weight: 800;
+  }
+
+  input {
+    --color: var(--text);
+    padding: 0.25rem 0.5rem;
+    border: var(--border) var(--color);
+    border-radius: var(--rounded-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+
+    &.ng-invalid.ng-touched.ng-dirty {
+      --color: var(--accent);
+      color: var(--bg);
+      background: var(--danger);
+    }
+  }
+
+  &:has(.ng-invalid.ng-touched.ng-dirty) label { color: var(--danger); }
+}
+
+.error {
+  font-size: var(--text-xs);
+  margin-left: 0.25rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  /* Grid-Trick: animatable height with CSS */
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.5s;
+
+  div       { min-height: 0; } /* ensures element can shrink */
+  &.visible { grid-template-rows: 1fr; }
+}

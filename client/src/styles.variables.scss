@@ -87,7 +87,7 @@
 }
 
 .box-float {
- border: var(--border-text);
+ border: var(--border) var(--text);
  background: var(--box);
  box-shadow: var(--shadow-lg);
  border-radius: var(--rounded-xl);

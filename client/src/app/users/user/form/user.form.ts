@@ -1,5 +1,6 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { AbstractControl, Validators, FormGroup, FormControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
+import { ObjMap } from 'app/shared/types/shared.types';
 import { UserApi } from 'app/users/user.api';
 
 const trimValues = (control: AbstractControl) => {
@@ -34,6 +35,7 @@ const validators = [Validators.required, trimValues];
 })
 export class UserForm {
   userId = input.required<string>();
+  errors = signal<ObjMap>({});
   private isSubmitting = signal(false);
   private userAPI      = inject(UserApi);
 
@@ -68,12 +70,14 @@ export class UserForm {
     this.isSubmitting.set(true);
     this.userAPI.updateUser(this.userId(), this.form.value).subscribe({
        next: (val) => console.log('(updateUser):', val),
-      error: (err) => {
-        console.log('Error (updateUser):', err);
+      error: ({ error }) => {
+        console.log('Error (updateUser):', error);
+        this.errors.set(error);
         this.isSubmitting.set(false);
       },
       complete: () => {
         this.isSubmitting.set(false);
+        this.errors.set({});
         this.form.reset();
       },
     });

@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS users (
   joined_on  INTEGER NOT NULL
 )
 """)
+# joined_on INTEGER NOT NULL DEFAULT (strftime('%s','now'))
+# would generate joined_on automatically if wasn't also generating random dummy data
 db.commit()
 
 count = cursor.execute("SELECT COUNT(*) FROM users").fetchone()[0]
