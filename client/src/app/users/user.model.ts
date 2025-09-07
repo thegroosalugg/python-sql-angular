@@ -4,5 +4,5 @@ export type User = {
    last_name: string;
        email: string;
          dob: string;
-   joined_on: string;
+  created_at: string;
 }

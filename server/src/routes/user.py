@@ -33,9 +33,8 @@ def update_user(user_id):
 
     errors = validate_user(data)
 
-    print(user_id, errors)
+    if errors:
+        return jsonify(errors), 422
 
-    # tuple assignment: like JS [a,b] = [...]
-    # if errors dict has keys -> return errors + 422, else success + 200
-    msg, status = (errors, 422) if errors else ({"message": "success"}, 200)
-    return jsonify(msg), status
+    user = User(id=user_id, **data).save()
+    return jsonify(user)

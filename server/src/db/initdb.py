@@ -31,11 +31,11 @@ CREATE TABLE IF NOT EXISTS users (
   last_name  TEXT NOT NULL,
   email      TEXT NOT NULL UNIQUE,
   dob        TEXT NOT NULL,            -- store as ISO string
-  joined_on  INTEGER NOT NULL
+  created_at TEXT NOT NULL
 )
 """)
-# joined_on INTEGER NOT NULL DEFAULT (strftime('%s','now'))
-# would generate joined_on automatically if wasn't also generating random dummy data
+# created_at INTEGER NOT NULL DEFAULT (strftime('%s','now'))
+# would generate created_at automatically if wasn't also generating random dummy data
 db.commit()
 
 count = cursor.execute("SELECT COUNT(*) FROM users").fetchone()[0]
@@ -46,7 +46,7 @@ if count == 0:
     users = generate_data()
 
     cursor.executemany(
-        "INSERT INTO users (first_name,last_name,email,dob,joined_on) VALUES (?,?,?,?,?)",
+        "INSERT INTO users (first_name,last_name,email,dob,created_at) VALUES (?,?,?,?,?)",
         # [new_tuple for old_tuple in list (array)] -> array.map(oldTuple => newTuple)
         [(f, l, e, d.isoformat(), y) for (f, l, e, d, y) in users],
     )

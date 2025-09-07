@@ -24,7 +24,7 @@ def generate_data():
         email = f"{first.lower()}.{last.lower()}@email.com"
         # random birth day: clamped
         dob = today - timedelta(days=random.randint(365 * 18, 365 * 99))
-        joined_on = random.randint(2010, 2025)
-        users.append((first, last, email, dob, joined_on))
+        created_at = today - timedelta(days=random.randint(0, 365 * 15))
+        users.append((first, last, email, dob, created_at))
 
     return users

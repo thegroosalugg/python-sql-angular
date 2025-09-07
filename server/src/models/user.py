@@ -1,5 +1,5 @@
 """User model for Python SQL access"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 # @dataclass == class decorator that generates constructor (__init__)
 from datetime import date  # JS: Date class
 from src.db.initdb import get_cursor
@@ -10,9 +10,19 @@ class User:
     first_name: str
     last_name:  str
     email:      str
-    dob:       date
-    joined_on:  int
+    dob:        str
+    # field: return an object to identify dataclass fields.
+    # default_factory: expects function instead of static value;
+    # lambda: anonymous function () => {}
+    # init=False: created in the constructor only, cannot be passed as argument
+    # isoformat() == toISOString(),
+    created_at: str = field(default_factory=lambda: date.today().isoformat(), init=False)
     id:         int | None = None  # Optional, default None;
+
+    def serialize(self):  # self = instance reference, passed implicitly on user.serialize()
+        """Dataclass to dict (cheap shallow copy)
+        JS: Object.keys(this).reduce((a,k) => { a[k]=this[k]; return a; }, {})"""
+        return self.__dict__.copy()  # __dict__: instance vars dict, .copy(): shallow clone
 
     def save(self):
         """Insert or update User in DB"""
@@ -23,17 +33,17 @@ class User:
             self.first_name,
             self.last_name,
             self.email,
-            self.dob.isoformat(), # .isoformat() == toISOString() in JS
-            self.joined_on,
+            self.dob,
         )
 
         if self.id is None:  # New User
             cursor.execute(
                 """
-                INSERT INTO users (first_name, last_name, email, dob, joined_on)
+                INSERT INTO users (first_name, last_name, email, dob, created_at)
                 VALUES (?,?,?,?,?)
                 """,
-                values,
+                # must use a tuple. Comma tells python to treat element as a single value tuple
+                values + (self.created_at,),
             )
             db.commit()  # commit() == save changes to DB (like .run() in JS better-sqlite3)
             self.id = cursor.lastrowid
@@ -41,12 +51,14 @@ class User:
             cursor.execute(
                 """
                 UPDATE users
-                SET first_name=?, last_name=?, email=?, dob=?, joined_on=?
+                SET first_name=?, last_name=?, email=?, dob=?
                 WHERE id=?
                 """,
                 values + (self.id,),  # append id for WHERE
             )
             db.commit()
+
+        return self.serialize()
 
     @staticmethod
     def get_all() -> list[dict]:
