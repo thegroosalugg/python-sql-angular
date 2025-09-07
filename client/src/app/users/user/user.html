@@ -1,4 +1,5 @@
-@let u = user(); @if (isLoading()) {
+@let u = user();
+@if (isLoading()) {
   <div style="margin: 1rem auto;">
     <app-loader />
   </div>
@@ -9,5 +10,5 @@
     <p>{{ u.dob }}</p>
     <p>{{ u.created_at }}</p>
   </div>
-  <app-user-form [userId]="u.id" />
+  <app-user-form [(user)]="user" />
 }

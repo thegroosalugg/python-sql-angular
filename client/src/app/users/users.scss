@@ -29,7 +29,7 @@ header {
     padding: 0.25rem;
     color: var(--color);
     border: var(--border) var(--color);
-    border-radius: var(--rounded-md);
+    border-radius: var(--rounded-sm);
 
     &.active { --color: var(--accent); background: var(--box);}
   }

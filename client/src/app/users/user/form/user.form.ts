@@ -1,19 +1,13 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { AbstractControl, Validators, FormGroup, FormControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { ObjMap } from 'app/shared/types/shared.types';
 import { UserApi } from 'app/users/user.api';
+import { User } from 'app/users/user.model';
 
-const trimValues = (control: AbstractControl) => {
+const noEmptyStrings = (control: AbstractControl) => {
   if (!control.value?.trim()) return { emptyString: true };
   return null;
 }
-
-// Validators.email is terrible. Custom logic is a must.
-const validEmail = (control: AbstractControl): ValidationErrors | null => {
-  const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!pattern.test(control.value)) return { email: true };
-  return null;
-};
 
 export const validDate = (control: AbstractControl): ValidationErrors | null => {
   const { value } = control;
@@ -25,7 +19,9 @@ export const validDate = (control: AbstractControl): ValidationErrors | null => 
   return null;
 };
 
-const validators = [Validators.required, trimValues];
+const    A_z_Exp = /^[a-zA-Z\s]+$/;
+const   emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const validators = [Validators.required, Validators.minLength(2), noEmptyStrings];
 
 @Component({
      selector: 'app-user-form',
@@ -33,18 +29,22 @@ const validators = [Validators.required, trimValues];
   templateUrl: './user.form.html',
      styleUrl: './user.form.scss'
 })
-export class UserForm {
-  userId = input.required<string>();
+export class UserForm implements OnInit {
+  user   = model<User | null>();
   errors = signal<ObjMap>({});
   private isSubmitting = signal(false);
   private userAPI      = inject(UserApi);
 
   form = new FormGroup({
-    first_name: new FormControl('', { validators }),
-     last_name: new FormControl('', { validators }),
-         email: new FormControl('', { validators: [...validators, validEmail] }),
-           dob: new FormControl('', { validators: [...validators,  validDate] })
+    first_name: new FormControl('', { validators: [...validators, Validators.pattern(A_z_Exp) ] }),
+     last_name: new FormControl('', { validators: [...validators, Validators.pattern(A_z_Exp) ] }),
+         email: new FormControl('', { validators: [...validators, Validators.pattern(emailExp)] }),
+           dob: new FormControl('', { validators: [...validators, validDate] })
   });
+
+  ngOnInit() {
+    this.form.patchValue(this.formValues());
+  }
 
   fields = [
     { key: 'first_name', label: 'Name'    },
@@ -53,8 +53,14 @@ export class UserForm {
     { key: 'dob',        label: 'Date of Birth', type: 'date' },
   ];
 
+  // set default form values: prefill existing data or blank
+  private formValues = () => {
+    const { first_name = '', last_name = '', email = '', dob = '' } = this.user() ?? {};
+    return { first_name, last_name, email, dob };
+  }
+
   // marks controls as touched & dirty: applies NG-CSS classes
-  private markSubmitted(formGroup: FormGroup) {
+  private markSubmitted = (formGroup: FormGroup) => {
     for (const field in formGroup.controls) {
       const control = formGroup.get(field);
       control?.markAsTouched();
@@ -64,21 +70,28 @@ export class UserForm {
   }
 
   onSubmit = () => {
-    console.log(this.form.value);
+    if (this.isSubmitting()) return;
+
     this.markSubmitted(this.form);
     if (this.form.invalid) return;
+
+    const userId = this.user()?.id;
+    if (!userId) return;
+
     this.isSubmitting.set(true);
-    this.userAPI.updateUser(this.userId(), this.form.value).subscribe({
-       next: (val) => console.log('(updateUser):', val),
+    this.userAPI.updateUser(userId, this.form.value).subscribe({
+       next: (user) => { // created_at is immutable in server, but returned update value is Date.now()...
+         // ...not the real value, so it should not be overwritten it if it exists
+         this.user.update((prev) => ({ ...prev, ...user, created_at: prev?.created_at ?? user.created_at }))
+      },
       error: ({ error }) => {
-        console.log('Error (updateUser):', error);
         this.errors.set(error);
         this.isSubmitting.set(false);
       },
       complete: () => {
         this.isSubmitting.set(false);
         this.errors.set({});
-        this.form.reset();
+        this.form.reset(this.formValues());
       },
     });
   };

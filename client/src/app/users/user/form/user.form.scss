@@ -20,6 +20,12 @@ form {
       --color: var(--accent);
       --background: var(--bg);
     }
+
+    &:disabled {
+      pointer-events: none;
+      --color: var(--text);
+      --background: var(--bg);
+    }
   }
 }
 
