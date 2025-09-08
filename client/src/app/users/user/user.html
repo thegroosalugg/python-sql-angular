@@ -5,10 +5,22 @@
   </div>
 } @else if (u) {
   <div class="user-info">
-    <h2>{{ u.first_name }} {{ u.last_name }}</h2>
-    <p>{{ u.email }}</p>
-    <p>{{ u.dob }}</p>
-    <p>{{ u.created_at }}</p>
+    <p>
+      <span>Name</span>
+      <span>{{ u.first_name }} {{ u.last_name }}</span>
+    </p>
+    <p>
+      <span>Email</span>
+      <span>{{ u.email }}</span>
+    </p>
+    <p>
+      <span>Date of Birth</span>
+      <span>{{ u.dob | date : 'longDate' }}</span>
+    </p>
+    <p>
+      <span>Account Created</span>
+      <span>{{ u.created_at | date : 'longDate' }}</span>
+    </p>
   </div>
   <app-user-form [(user)]="user" />
 }

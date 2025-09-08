@@ -9,7 +9,7 @@ import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { Subscriptions } from 'app/shared/services/subscriptions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-type View = 'row' | 'col' | 'grid';
+type View = 'grid' | 'row' | 'col';
 
 @Component({
      selector: 'app-users',
@@ -24,13 +24,12 @@ export class Users implements OnInit {
   // Store observable at injection; automatically unsubscribes on component destroy
   private params$ = this.route.queryParamMap.pipe(takeUntilDestroyed());
 
-
   users           = signal<User[]>([]);
   isLoading       = signal(true); // data fetching
   hasLoaded       = signal(false); // keep loader in view until param query && data loaded
   isTransitioning = signal(false); // param query swapping
-  classes         = signal(['row', 'col', 'grid'] as View[]); // map reusable links => less boilerplate HTML
-  listStyle       = signal<View>('col'); // active css class
+  classes         = signal<View[]>(['grid', 'row', 'col']); // map reusable links => less boilerplate HTML
+  listStyle       = signal<View>('grid'); // active css class
 
   ngOnInit() {
     // fetch all users
@@ -46,7 +45,7 @@ export class Users implements OnInit {
       if (view === this.listStyle() && this.hasLoaded()) return;
       this.isTransitioning.set(true); // toggled every param query change
       setTimeout(() => {
-        this.listStyle.set(this.classes().includes(view) ? view : 'col');
+        this.listStyle.set(this.classes().includes(view) ? view : 'grid');
         this.isTransitioning.set(false);
         this.hasLoaded.set(true); // toggled only once, on initial query detection
       }, 500); // standard app animation timer

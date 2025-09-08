@@ -8,7 +8,13 @@
     <h2>View</h2>
     <section>
       @for (class of classes(); track class) {
-        <a [routerLink]="[]" [queryParams]="{ view: class }" queryParamsHandling="merge" routerLinkActive="active">
+        <a
+          [routerLink]="[]"
+          [queryParams]="{ view: class }"
+          queryParamsHandling="merge"
+          routerLinkActive="active"
+          [attr.aria-label]="class + ' view'"
+        >
           <app-svg [icon]="class" />
         </a>
       }

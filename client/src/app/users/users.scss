@@ -43,8 +43,8 @@ ul {
   align-content: start; /* aligns rows at the top */
   gap: 0.5rem;
   overflow: auto;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
   transition: var(--transition);
   animation: fadeIn 1s ease;
   opacity: 1;
@@ -58,7 +58,7 @@ ul {
 
   &.col {
     grid-template-columns: repeat(2, 200px); // 2 columns
-    margin: 0.25rem auto;
+    justify-content: center;
   }
 
   &.grid {

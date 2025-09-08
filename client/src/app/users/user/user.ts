@@ -3,10 +3,11 @@ import { User as UserModel } from '../user.model';
 import { UserApi } from '../user.api';
 import { Loader } from "app/shared/ui/loader/loader";
 import { UserForm } from "./form/user.form";
+import { DatePipe } from '@angular/common';
 
 @Component({
      selector: 'app-user',
-      imports: [Loader, UserForm],
+      imports: [Loader, UserForm, DatePipe],
   templateUrl: './user.html',
      styleUrl: './user.scss'
 })

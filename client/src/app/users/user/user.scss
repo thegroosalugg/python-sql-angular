@@ -1,8 +1,28 @@
 :host {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 3rem;
+  padding: 1rem;
+  max-width: 100%;
 }
 
 .user-info {
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  p {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      &:first-child {
+        margin-left: 0.25rem;
+        font-weight: bold;
+        color: var(--text);
+      }
+    }
+  }
 }
