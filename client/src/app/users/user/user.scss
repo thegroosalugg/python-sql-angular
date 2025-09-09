@@ -1,18 +1,25 @@
 :host {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: column;
   gap: 3rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
+  max-width: 100%;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+  }
+}
+
+.user-info, .dynamic-view, .ui-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   max-width: 100%;
 }
 
 .user-info {
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
   p {
     display: flex;
     flex-direction: column;
@@ -24,5 +31,23 @@
         color: var(--text);
       }
     }
+  }
+}
+
+.dynamic-view, .ui-controls {
+  > button {
+    padding: 0.25rem 0.5rem;
+    border: var(--border) var(--text);
+    border-radius: var(--rounded-md);
+  }
+}
+
+.dynamic-view {
+  align-items: center;
+
+  > button {
+    align-self: start;
+    font-weight: 800;
+    background: var(--box)
   }
 }

@@ -13,7 +13,6 @@ h1 {
 .text {
   font-size: var(--text-base);
   font-weight: 700;
-  text-wrap: nowrap;
 
   &.responsive {
     @media (min-width: 768px)  { display: none;   }

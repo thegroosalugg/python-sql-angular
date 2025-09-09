@@ -24,12 +24,12 @@ export class Users implements OnInit {
   // Store observable at injection; automatically unsubscribes on component destroy
   private params$ = this.route.queryParamMap.pipe(takeUntilDestroyed());
 
+  classes         = ['grid', 'row', 'col'] as const; // map reusable links => less boilerplate HTML
+  listStyle       = signal<View>('grid'); // active css class
   users           = signal<User[]>([]);
   isLoading       = signal(true); // data fetching
   hasLoaded       = signal(false); // keep loader in view until param query && data loaded
   isTransitioning = signal(false); // param query swapping
-  classes         = signal<View[]>(['grid', 'row', 'col']); // map reusable links => less boilerplate HTML
-  listStyle       = signal<View>('grid'); // active css class
 
   ngOnInit() {
     // fetch all users
@@ -45,7 +45,7 @@ export class Users implements OnInit {
       if (view === this.listStyle() && this.hasLoaded()) return;
       this.isTransitioning.set(true); // toggled every param query change
       setTimeout(() => {
-        this.listStyle.set(this.classes().includes(view) ? view : 'grid');
+        this.listStyle.set(this.classes.includes(view) ? view : 'grid');
         this.isTransitioning.set(false);
         this.hasLoaded.set(true); // toggled only once, on initial query detection
       }, 500); // standard app animation timer

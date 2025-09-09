@@ -22,5 +22,23 @@
       <span>{{ u.created_at | date : 'longDate' }}</span>
     </p>
   </div>
-  <app-user-form [(user)]="user" />
+  <div class="dynamic-view">
+    @if (activeView() !== 'controls') {
+      <button (click)="setView('controls')">Go Back</button>
+    }
+    @switch (activeView()) {
+      @case ('edit')       { <app-user-form [(user)]="user" /> }
+      @case ('activities') { <app-user-form [(user)]="user" /> }
+      @case ('button 3')   { <app-user-form [(user)]="user" /> }
+      @case ('button 4')   { <app-user-form [(user)]="user" /> }
+      @case ('button 5')   { <app-user-form [(user)]="user" /> }
+      @default {
+        <div class="ui-controls">
+          @for (view of views; track view) {
+            <button (click)="setView(view)" [style.background]="getBg($index)">{{ view }}</button>
+          }
+        </div>
+      }
+    }
+  </div>
 }
