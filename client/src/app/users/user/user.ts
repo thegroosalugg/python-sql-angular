@@ -20,10 +20,11 @@ export class User implements OnInit {
   private isDarkMode = signal(this.mediaQuery.matches);
 
   views: UserView[] = ['edit', 'activities', 'button 3', 'button 4', 'button 5'];
-  userId     = input<string>('');
-  user       = signal<UserModel | null>(null);
-  isLoading  = signal(true); // data fetching
-  activeView = signal('controls');
+  userId            = input<string>('');
+  user              = signal<UserModel | null>(null);
+  isLoading         = signal(true); // data fetching
+  activeView        = signal('controls');
+  isTransitioning   = signal(false);
 
   ngOnInit(): void {
     // subscription to get selected user by ID
@@ -48,7 +49,16 @@ export class User implements OnInit {
   // change visible component
   setView = (view: UserView) => {
     const isValid = this.views.includes(view);
-    this.activeView.set(isValid ? view : 'controls');
+    const newView = isValid ? view : 'controls';
+
+    if (newView !== this.activeView()) {
+      this.isTransitioning.set(true);
+      // Delay the view change to allow exit animation
+      setTimeout(() => {
+        this.activeView.set(newView);
+        this.isTransitioning.set(false);
+      }, 150); // Half of total transition time
+    }
   };
 
   // dynamically set button colors based on index (clamped at 9; darker colors on dark mode)

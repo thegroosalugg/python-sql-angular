@@ -22,7 +22,7 @@
       <span>{{ u.created_at | date : 'longDate' }}</span>
     </p>
   </div>
-  <div class="dynamic-view">
+  <div [class]="{ 'dynamic-view': true, transitioning: isTransitioning() }">
     @if (activeView() !== 'controls') {
       <button (click)="setView('controls')">Go Back</button>
     }

@@ -1,25 +1,24 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding: 1rem 2rem;
-  max-width: 100%;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 3rem;
-  }
-}
-
-.user-info, .dynamic-view, .ui-controls {
+:host, .user-info, .dynamic-view, .ui-controls {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   max-width: 100%;
 }
 
+:host {
+  animation: fadeIn 1s ease;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
 .user-info {
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-xl);
+  @media (min-width: 768px) { box-shadow: none; }
+
   p {
     display: flex;
     flex-direction: column;
@@ -43,11 +42,26 @@
 }
 
 .dynamic-view {
+  padding: 1rem 2rem;
+  gap: 1rem;
   align-items: center;
+  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+
+  &.transitioning {
+    transform: translateX(-20px);
+    opacity: 0.7;
+  }
 
   > button {
-    align-self: start;
+    width: 180px;
+    max-width: 100%;
+    align-self: flex-end;
     font-weight: 800;
     background: var(--box)
   }
+}
+
+.ui-controls {
+  width: 80%;
+  @media (min-width: 768px) { width: auto; }
 }
