@@ -1,10 +1,24 @@
 import { Component, inject, model, OnInit, signal } from '@angular/core';
-import { AbstractControl, Validators, FormGroup, FormControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  Validators,
+  FormGroup,
+  FormControl,
+  ValidationErrors,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ObjMap } from 'app/shared/types/shared.types';
 import { UserApi } from 'app/users/user.api';
 import { User } from 'app/users/user.model';
-import { Modal } from "app/shared/modal/modal";
+import { Modal } from 'app/shared/modal/modal';
 import { ModalService } from 'app/shared/modal/modal.service';
+
+const flatten = (str: string) => str.replace(/\s+/g, ' ').trim(); // flatten multi whitespaces
+
+const normalize = (obj: Object) =>
+  Object.fromEntries( // flatten all string values in an object
+    Object.entries(obj).map(([k, v]) => [k, typeof v === 'string' ? flatten(v) : v])
+  );
 
 const noEmptyStrings = (control: AbstractControl) => {
   if (!control.value?.trim()) return { emptyString: true };
@@ -72,11 +86,26 @@ export class UserForm implements OnInit {
     }
   }
 
+  hasFormChanged = () => {
+    const original = normalize(this.formValues());
+    const current  = normalize(this.form.value);
+
+    return JSON.stringify(current) !== JSON.stringify(original);
+  };
+
+  shouldntSubmit = () => this.form.invalid || this.form.pristine || !this.hasFormChanged();
+
   onSubmit = () => {
     if (this.isSubmitting()) return; // throttle multi-clicks
 
     this.markSubmitted(this.form); // show client error styles
-    if (this.form.invalid) return; // prevent invalid client submit
+    if (this.shouldntSubmit()) return; // prevent invalid client submit
+
+    const original = this.formValues();
+    const current  = this.form.value;
+
+    const hasChanged = JSON.stringify(current).trim() !== JSON.stringify(original).trim();
+    if (!hasChanged) return; // prevent pointless submit
 
     const userId = this.user()?.id;
     if (!userId) return; // unlikely scenario security
@@ -97,6 +126,7 @@ export class UserForm implements OnInit {
         this.errors.set({});
         this.form.reset(this.formValues());
         this.modal.open() // show succes message
+
         setTimeout(() => {
           this.modal.close();
         }, 1000);

@@ -11,7 +11,7 @@
       <input [id]="field.key" [formControlName]="field.key" [type]="field.type ?? 'text'" />
     </div>
   }
-  <button [disabled]="form.invalid">Submit</button>
+  <button [disabled]="shouldntSubmit()">Submit</button>
 </form>
 <app-modal>
   <p class="success">Updated!</p>

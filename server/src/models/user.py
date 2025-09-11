@@ -1,8 +1,13 @@
 """User model for Python SQL access"""
+import re  # regex library, like JS RegExp
 from dataclasses import dataclass, field
 # @dataclass == class decorator that generates constructor (__init__)
 from datetime import date  # JS: Date class
 from src.db.initdb import get_cursor
+
+def flatten(s: str) -> str:
+    """Flatten multi whitespaces"""
+    return re.sub(r'\s+', ' ', s).strip()
 
 @dataclass  # decorator, automatically generates constructor, repr
 class User:
@@ -30,9 +35,9 @@ class User:
 
         # tuple == array in JS
         values = (
-            self.first_name,
-            self.last_name,
-            self.email,
+            flatten(self.first_name),
+            flatten(self.last_name),
+            self.email,  # non collapsed whitespaces are rejected during validation
             self.dob,
         )
 
