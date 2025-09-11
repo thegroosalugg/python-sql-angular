@@ -1,43 +1,11 @@
 import { Component, inject, model, OnInit, signal } from '@angular/core';
-import {
-  AbstractControl,
-  Validators,
-  FormGroup,
-  FormControl,
-  ValidationErrors,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ObjMap } from 'app/shared/types/shared.types';
 import { UserApi } from 'app/users/user.api';
 import { User } from 'app/users/user.model';
 import { Modal } from 'app/shared/modal/modal';
 import { ModalService } from 'app/shared/modal/modal.service';
-
-const flatten = (str: string) => str.replace(/\s+/g, ' ').trim(); // flatten multi whitespaces
-
-const normalize = (obj: Object) =>
-  Object.fromEntries( // flatten all string values in an object
-    Object.entries(obj).map(([k, v]) => [k, typeof v === 'string' ? flatten(v) : v])
-  );
-
-const noEmptyStrings = (control: AbstractControl) => {
-  if (!control.value?.trim()) return { emptyString: true };
-  return null;
-}
-
-export const validDate = (control: AbstractControl): ValidationErrors | null => {
-  const { value } = control;
-  if (!value) return null; // leave required check to Validators.required
-
-  const date = new Date(value);
-  if (isNaN(date.getTime())) return { invalidDate: true };
-
-  return null;
-};
-
-const    A_z_Exp = /^[a-zA-Z\s]+$/;
-const   emailExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const validators = [Validators.required, Validators.minLength(2), noEmptyStrings];
+import { dateValidators, emailValidators, nameValidators, normalize } from 'app/shared/validation/validators';
 
 @Component({
      selector: 'app-user-form',
@@ -53,10 +21,10 @@ export class UserForm implements OnInit {
   private modal        = inject(ModalService);
 
   form = new FormGroup({
-    first_name: new FormControl('', { validators: [...validators, Validators.pattern(A_z_Exp) ] }),
-     last_name: new FormControl('', { validators: [...validators, Validators.pattern(A_z_Exp) ] }),
-         email: new FormControl('', { validators: [...validators, Validators.pattern(emailExp)] }),
-           dob: new FormControl('', { validators: [...validators, validDate] })
+    first_name: new FormControl('', { validators: nameValidators  }),
+     last_name: new FormControl('', { validators: nameValidators  }),
+         email: new FormControl('', { validators: emailValidators }),
+           dob: new FormControl('', { validators: dateValidators  })
   });
 
   ngOnInit() {
