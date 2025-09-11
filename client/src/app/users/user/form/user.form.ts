@@ -3,6 +3,8 @@ import { AbstractControl, Validators, FormGroup, FormControl, ValidationErrors, 
 import { ObjMap } from 'app/shared/types/shared.types';
 import { UserApi } from 'app/users/user.api';
 import { User } from 'app/users/user.model';
+import { Modal } from "app/shared/modal/modal";
+import { ModalService } from 'app/shared/modal/modal.service';
 
 const noEmptyStrings = (control: AbstractControl) => {
   if (!control.value?.trim()) return { emptyString: true };
@@ -25,7 +27,7 @@ const validators = [Validators.required, Validators.minLength(2), noEmptyStrings
 
 @Component({
      selector: 'app-user-form',
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, Modal],
   templateUrl: './user.form.html',
      styleUrl: './user.form.scss'
 })
@@ -34,6 +36,7 @@ export class UserForm implements OnInit {
   errors = signal<ObjMap>({});
   private isSubmitting = signal(false);
   private userAPI      = inject(UserApi);
+  private modal        = inject(ModalService);
 
   form = new FormGroup({
     first_name: new FormControl('', { validators: [...validators, Validators.pattern(A_z_Exp) ] }),
@@ -70,18 +73,19 @@ export class UserForm implements OnInit {
   }
 
   onSubmit = () => {
-    if (this.isSubmitting()) return;
+    if (this.isSubmitting()) return; // throttle multi-clicks
 
-    this.markSubmitted(this.form);
-    if (this.form.invalid) return;
+    this.markSubmitted(this.form); // show client error styles
+    if (this.form.invalid) return; // prevent invalid client submit
 
     const userId = this.user()?.id;
-    if (!userId) return;
+    if (!userId) return; // unlikely scenario security
 
-    this.isSubmitting.set(true);
+    this.isSubmitting.set(true); // begin the procedure
+
     this.userAPI.updateUser(userId, this.form.value).subscribe({
        next: (user) => { // created_at is immutable in server, but returned update value is Date.now()...
-         // ...not the real value, so it should not be overwritten it if it exists
+         // ...not the real value, so it should not be overwritten if it exists
          this.user.update((prev) => ({ ...prev, ...user, created_at: prev?.created_at ?? user.created_at }))
       },
       error: ({ error }) => {
@@ -92,6 +96,10 @@ export class UserForm implements OnInit {
         this.isSubmitting.set(false);
         this.errors.set({});
         this.form.reset(this.formValues());
+        this.modal.open() // show succes message
+        setTimeout(() => {
+          this.modal.close();
+        }, 1000);
       },
     });
   };

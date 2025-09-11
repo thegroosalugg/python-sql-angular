@@ -80,3 +80,12 @@ form {
   div       { min-height: 0; } /* ensures element can shrink */
   &.visible { grid-template-rows: 1fr; }
 }
+
+.success {
+  font-weight: 900;
+  font-size: var(--text-xl);
+  padding: 0.5rem 1rem;
+  background: var(--success);
+  color: var(--bg);
+  border-radius: var(--rounded-xl);
+}
