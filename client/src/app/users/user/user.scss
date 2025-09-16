@@ -1,0 +1,67 @@
+:host, .user-info, .dynamic-view, .ui-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+:host {
+  animation: fadeIn 1s ease;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.user-info {
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-xl);
+  @media (min-width: 768px) { box-shadow: none; }
+
+  p {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      &:first-child {
+        margin-left: 0.25rem;
+        font-weight: bold;
+        color: var(--text);
+      }
+    }
+  }
+}
+
+.dynamic-view, .ui-controls {
+  > button {
+    padding: 0.25rem 0.5rem;
+    border: var(--border) var(--text);
+    border-radius: var(--rounded-md);
+  }
+}
+
+.dynamic-view {
+  padding: 1rem 2rem;
+  gap: 1rem;
+  align-items: center;
+  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+
+  &.transitioning {
+    transform: translateX(-20px);
+    opacity: 0.7;
+  }
+
+  > button {
+    width: 180px;
+    max-width: 100%;
+    align-self: flex-end;
+    font-weight: 800;
+    background: var(--box)
+  }
+}
+
+.ui-controls {
+  width: 80%;
+  @media (min-width: 768px) { width: auto; }
+}

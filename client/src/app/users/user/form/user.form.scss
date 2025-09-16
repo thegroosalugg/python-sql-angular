@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  max-width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  button {
+    --color: var(--bg);
+    --background: var(--accent);
+    align-self: end;
+    padding: 0.25rem 0.5rem;
+    font-weight: 700;
+    color: var(--color);
+    background: var(--background);
+    border: var(--border) var(--color);
+    border-radius: var(--rounded-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+
+    &:hover {
+      --color: var(--accent);
+      --background: var(--bg);
+    }
+
+    &:disabled {
+      pointer-events: none;
+      --color: var(--text);
+      --background: var(--bg);
+    }
+  }
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--text-sm);
+
+  label {
+    margin-left: 0.25rem;
+    color: var(--text);
+    font-weight: 800;
+  }
+
+  input {
+    --color: var(--text);
+    padding: 0.25rem 0.5rem;
+    border: var(--border) var(--color);
+    border-radius: var(--rounded-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+
+    &.ng-invalid.ng-touched.ng-dirty {
+      --color: var(--accent);
+      color: var(--bg);
+      background: var(--danger);
+
+      /* make date-picker icon white */
+      &::-webkit-calendar-picker-indicator { filter: invert(1) brightness(2); }
+    }
+  }
+
+  &:has(.ng-invalid.ng-touched.ng-dirty) label { color: var(--danger); }
+}
+
+.error {
+  font-size: var(--text-xs);
+  margin-left: 0.25rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  /* Grid-Trick: animatable height with CSS */
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.5s;
+
+  div       { min-height: 0; } /* ensures element can shrink */
+  &.visible { grid-template-rows: 1fr; }
+}
+
+.success {
+  font-weight: 900;
+  font-size: var(--text-xl);
+  padding: 0.5rem 1rem;
+  background: var(--success);
+  color: var(--bg);
+  border-radius: var(--rounded-xl);
+}

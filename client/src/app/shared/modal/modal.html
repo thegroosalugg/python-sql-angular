@@ -1,0 +1,7 @@
+@if (modal.isOpen()) {
+  <div id="backdrop" (click)="modal.close()"></div>
+  <!-- empty string sets the attribute with no value, null removes attribute -->
+  <dialog id="modal" open [attr.closing]="modal.isClosing() ? '' : null">
+    <ng-content />
+  </dialog>
+}

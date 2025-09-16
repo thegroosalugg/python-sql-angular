@@ -1,0 +1,42 @@
+@if (isLoading() || !hasLoaded()) {
+  <!-- provide loader margin top | bottom -->
+  <div style="margin: 1rem auto;">
+    <app-loader />
+  </div>
+} @else {
+  <header>
+    <h2>View</h2>
+    <section>
+      @for (class of classes; track class) {
+        <a
+          [routerLink]="[]"
+          [queryParams]="{ view: class }"
+          queryParamsHandling="merge"
+          routerLinkActive="active"
+          [attr.aria-label]="class + ' view'"
+        >
+          <app-svg [icon]="class" />
+        </a>
+      }
+    </section>
+  </header>
+  <ul #ulist [class]="`scrollbar-accent ${listStyle()}`" [class.transitioning]="isTransitioning()">
+    @for (user of users(); track user.id) {
+      <li>
+        <a [routerLink]="['/user', user.id]">
+          <h2>
+            <strong>{{ user.first_name }} {{ user.last_name }}</strong>
+            <span>{{ user.dob | age }} years old</span>
+          </h2>
+          <p class="email">{{ user.email }}</p>
+          <p class="dob">DOB: {{ user.dob | date : 'longDate' }}</p>
+          <p class="joined">
+            Registered: <span>{{ user.created_at | date : 'y' }}</span>
+          </p>
+        </a>
+      </li>
+    } @empty {
+      <li class="fallback">No data available.</li>
+    }
+  </ul>
+}

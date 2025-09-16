@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  @for (field of fields; track field.key) {
+    <div class="control">
+      <label [for]="field.key">{{ field.label }}</label>
+      @let hasError = errors()[field.key];
+      <!-- aria-hidden: screen readers will ignore element when !!hasError -->
+      <div [class]="{ error: true, visible: hasError }" [attr.aria-hidden]="!hasError">
+        <!-- '\u00A0' is a non-breaking space; <div> is never empty and the container exists at all times. -->
+        <div>{{ hasError ?? '\u00A0' }}</div>
+      </div>
+      <input [id]="field.key" [formControlName]="field.key" [type]="field.type ?? 'text'" />
+    </div>
+  }
+  <button [disabled]="shouldntSubmit()">Submit</button>
+</form>
+<app-modal>
+  <p class="success">Updated!</p>
+</app-modal>

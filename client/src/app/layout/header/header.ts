@@ -4,11 +4,12 @@ import { Searchbar } from "app/shared/form/searchbar/searchbar";
 import { Svg } from "app/shared/ui/svg/svg";
 import { Logo } from "app/shared/ui/logo/logo";
 import { appMetadata } from 'app/app.meta';
+import { RouterLink } from '@angular/router';
 
 @Component({
      selector: 'app-header',
    standalone: true,
-      imports: [Svg, Searchbar, Logo],
+      imports: [Svg, Searchbar, Logo, RouterLink],
   templateUrl: './header.html',
     styleUrls: ['./header.scss'],
 })

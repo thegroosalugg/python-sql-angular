@@ -44,6 +44,7 @@
 - [responsive]="true"; optional (hides text on certain breakpoints)
 - set title in __app.meta.ts__ to change text
 - uses custom svg library - can be replaced by any type of logo as needed
+- pass any css variable as color - type safe
 
 ### custom icon library - public/icons.svg
 - custom svg library; use with custom svg component in __shared/ui/svg__
@@ -52,7 +53,20 @@
   - id = chosen name prepended with "icon-", then add name to __shared/ui/svg/icon.types.ts__
   - can add any svg, use AI to quickly transform it to match provided syntax in icons.svg
 - images here were provided by https://www.svgrepo.com/
-- included: angular, hamburger, hamburger-2, cart, layers, search
+- included: angular, cart, col-2, grid-2, hamburger-2 layers, row-2, search, x
+  - with -number includes up to & original
 
 ### searchbar - shared/form/searchbar
 - searchbar html & css skeleton only. Add own logic.
+
+### loader - shared/ui/loader
+- configurable with 3 sizes: 16/32/64px
+- default accent color: includes classes bg/white - tweak as needed
+  - colors are more easily configured as classes over styles due to multiple positions
+    - for more colors tweak existing classes or create new
+
+### common types - shared/types
+- space for common types
+- includes:
+  - ObjMap (faster Record types)
+  - all CSS color variables are typed, i.e. red-500

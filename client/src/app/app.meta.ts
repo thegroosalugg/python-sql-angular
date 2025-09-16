@@ -4,4 +4,5 @@ export const appMetadata = {
    stack: 'Designed with Angular 20',
     link: 'https://github.com/',
    links: [],
+  apiUrl: 'http://localhost:5000/',
 };

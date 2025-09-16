@@ -16,7 +16,6 @@
 </app-sidebar>
 <!-- offset fixed header height when at the top of the page -->
 <main [style.margin-top.px]="height()">
-  <!-- placeholder: move or remove -->
-  <div class="box-float placeholder">Your main content goes here...</div>
+  <router-outlet />
 </main>
 <app-footer />
